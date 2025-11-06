@@ -4,9 +4,11 @@ import 'package:e_commerceapproute/core/utils/app_theme.dart';
 import 'package:e_commerceapproute/core/utils/shared_prefs_utils.dart';
 import 'package:e_commerceapproute/features/ui/auth/login/login_screen.dart';
 import 'package:e_commerceapproute/features/ui/auth/register/register_screen.dart';
+import 'package:e_commerceapproute/features/ui/cart_details/cubit/cart_view_model.dart';
 import 'package:e_commerceapproute/features/ui/home/home_screen.dart';
 import 'package:e_commerceapproute/features/ui/product_details/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'config/di/di.dart';
@@ -28,7 +30,12 @@ void main()async{
     //todo: user => token => home screen
     routeName = AppRoutes.homeRoute ;
   }
-  runApp(MyApp(routeName: routeName,));
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => getIt<CartViewModel>())],
+      child: MyApp(routeName: routeName),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget
