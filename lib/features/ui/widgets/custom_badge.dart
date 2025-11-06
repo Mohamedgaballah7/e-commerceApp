@@ -2,7 +2,10 @@
 import 'package:e_commerceapproute/core/utils/app_assets.dart';
 import 'package:e_commerceapproute/core/utils/app_colors.dart';
 import 'package:e_commerceapproute/core/utils/app_routes.dart';
+import 'package:e_commerceapproute/features/ui/cart_details/cubit/cart_states.dart';
+import 'package:e_commerceapproute/features/ui/cart_details/cubit/cart_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBarBadge extends StatelessWidget {
@@ -19,16 +22,21 @@ class CustomAppBarBadge extends StatelessWidget {
         Navigator.of(context).pushNamed(AppRoutes.cartRoute);
       }
           : null,
-      child:  Badge(
-      alignment: AlignmentDirectional.topStart,
-      backgroundColor: AppColors.greenColor,
-      label: Text(count.toString()),
-      child: ImageIcon(
-        const AssetImage(AppAssets.shoppingCart),
-        size: 35.sp,
-        color: AppColors.primaryColor,
+      child: BlocBuilder<CartViewModel, CartStates>(
+        builder: (context, state) {
+          final viewModel = CartViewModel.get(context);
+          return Badge(
+            alignment: AlignmentDirectional.topStart,
+            backgroundColor: AppColors.greenColor,
+            label: Text(viewModel.numOfCartItems.toString()),
+            child: ImageIcon(
+              const AssetImage(AppAssets.shoppingCart),
+              size: 35.sp,
+              color: AppColors.primaryColor,
+            ),
+          );
+        },
       ),
-    )
     );
   }
 }

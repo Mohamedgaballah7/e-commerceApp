@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
+import '../../api/data_source/remote/add_cart_remote_data_source_impl.dart'
+    as _i442;
 import '../../api/data_source/remote/auth_remote_data_source_impl.dart'
     as _i1066;
 import '../../api/data_source/remote/brand_remote_data_source_impl.dart'
@@ -24,28 +26,35 @@ import '../../api/data_source/remote/product_remote_data_source_impl.dart'
     as _i524;
 import '../../api/dio/dio_module.dart' as _i67;
 import '../../api/web_services.dart' as _i1069;
+import '../../data/data_sources/remote/add_cart_remote_data_source.dart'
+    as _i121;
 import '../../data/data_sources/remote/auth_remote_data_source.dart' as _i865;
 import '../../data/data_sources/remote/brand_remote_data_source.dart' as _i114;
 import '../../data/data_sources/remote/category_remote_data_source.dart'
     as _i344;
 import '../../data/data_sources/remote/product_remote_data_source.dart'
     as _i189;
+import '../../data/repository/add_cart_repository_impl.dart' as _i613;
 import '../../data/repository/auth_repository_impl.dart' as _i581;
 import '../../data/repository/brand_repository_impl.dart' as _i271;
 import '../../data/repository/category_repository_impl.dart' as _i1033;
 import '../../data/repository/product_repository_impl.dart' as _i667;
 import '../../domain/repository/auth/auth_repository.dart' as _i912;
 import '../../domain/repository/brands/brand_repository.dart' as _i506;
+import '../../domain/repository/cart/cart_repository.dart' as _i1048;
 import '../../domain/repository/category/category_repository.dart' as _i495;
 import '../../domain/repository/product/product_repository.dart' as _i798;
+import '../../domain/use_cases/add_cart_use_case.dart' as _i373;
 import '../../domain/use_cases/brand_use_case.dart' as _i550;
 import '../../domain/use_cases/category_use_case.dart' as _i184;
+import '../../domain/use_cases/get_cart_use_case.dart' as _i1001;
 import '../../domain/use_cases/login_use_case.dart' as _i471;
 import '../../domain/use_cases/product_use_case.dart' as _i1045;
 import '../../domain/use_cases/register_use_case.dart' as _i479;
 import '../../features/ui/auth/login/cubit/login_view_model.dart' as _i245;
 import '../../features/ui/auth/register/cubit/register_view_model.dart'
     as _i873;
+import '../../features/ui/cart_details/cubit/cart_view_model.dart' as _i262;
 import '../../features/ui/home/cubit/home_screen_view_model.dart' as _i714;
 import '../../features/ui/home/tabs/home/cubit/home_view_model.dart' as _i520;
 import '../../features/ui/home/tabs/product/cubit/product_tab_view_model.dart'
@@ -88,9 +97,19 @@ extension GetItInjectableX on _i174.GetIt {
         webServices: gh<_i1069.WebServices>(),
       ),
     );
+    gh.factory<_i121.AddCartRemoteDataSource>(
+      () => _i442.AddCartRemoteDataSourceImpl(
+        webServices: gh<_i1069.WebServices>(),
+      ),
+    );
     gh.factory<_i798.ProductRepository>(
       () => _i667.ProductRepositoryImpl(
         productRemoteDataSource: gh<_i189.ProductRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i1048.CartRepository>(
+      () => _i613.AddCartRepositoryImpl(
+        addCartRemoteDataSource: gh<_i121.AddCartRemoteDataSource>(),
       ),
     );
     gh.factory<_i1045.ProductUseCase>(
@@ -116,6 +135,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i550.BrandUseCase>(
       () => _i550.BrandUseCase(brandRepository: gh<_i506.BrandRepository>()),
     );
+    gh.factory<_i373.AddToCartUseCase>(
+      () => _i373.AddToCartUseCase(cartRepository: gh<_i1048.CartRepository>()),
+    );
+    gh.factory<_i1001.GetCartUseCase>(
+      () => _i1001.GetCartUseCase(cartRepository: gh<_i1048.CartRepository>()),
+    );
     gh.factory<_i495.CategoryRepository>(
       () => _i1033.CategoryRepositoryImpl(
         categoryRemoteDataSource: gh<_i344.CategoryRemoteDataSource>(),
@@ -124,6 +149,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i912.AuthRepository>(
       () => _i581.AuthRepositoryImpl(
         authRemoteDataSource: gh<_i865.AuthRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i262.CartViewModel>(
+      () => _i262.CartViewModel(
+        addToCartUseCase: gh<_i373.AddToCartUseCase>(),
+        getCartUseCase: gh<_i1001.GetCartUseCase>(),
       ),
     );
     gh.factory<_i471.LoginUseCase>(

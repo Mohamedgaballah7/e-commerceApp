@@ -2,6 +2,7 @@ import 'package:e_commerceapproute/config/di/di.dart';
 import 'package:e_commerceapproute/core/utils/app_assets.dart';
 import 'package:e_commerceapproute/core/utils/app_colors.dart';
 import 'package:e_commerceapproute/core/utils/app_styles.dart';
+import 'package:e_commerceapproute/features/ui/cart_details/cubit/cart_view_model.dart';
 import 'package:e_commerceapproute/features/ui/home/cubit/home_screen_states.dart';
 import 'package:e_commerceapproute/features/ui/home/cubit/home_screen_view_model.dart';
 import 'package:e_commerceapproute/features/ui/widgets/custom_badge.dart';
@@ -18,7 +19,10 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
 HomeScreenViewModel viewModel=getIt<HomeScreenViewModel>();
 
-
+@override
+void initState() {
+  CartViewModel.get(context).getItemsCart();
+}
   @override
   Widget build(BuildContext context) {
 
