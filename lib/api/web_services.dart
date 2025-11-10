@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:e_commerceapproute/api/api_end_points.dart';
+import 'package:e_commerceapproute/api/model/request/count_request_dto.dart';
 import 'package:e_commerceapproute/api/model/request/login_request_dto.dart';
 import 'package:e_commerceapproute/api/model/request/product_id_request_dto.dart';
 import 'package:e_commerceapproute/api/model/request/register_request_dto.dart';
@@ -39,4 +40,15 @@ abstract class WebServices {
 
   @GET(ApiEndPoints.addCartEndPoint)
   Future<GetCartResponseDto> getItemsInCart(@Header('token') String token);
+
+  @DELETE(ApiEndPoints.deleteCartEndPoint)
+  Future<GetCartResponseDto> deleteItemsInCart(
+      @Path('productId') String productId,
+      @Header('token') String token);
+
+  @PUT(ApiEndPoints.deleteCartEndPoint)
+  Future<GetCartResponseDto> updateCountsInCart(
+      @Path('productId') String productId,
+      @Header('token') String token,
+      @Body() CountRequestDto countRequest);
 }
