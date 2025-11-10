@@ -1,9 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:e_commerceapproute/core/utils/app_routes.dart';
 import 'package:e_commerceapproute/core/utils/app_theme.dart';
 import 'package:e_commerceapproute/core/utils/shared_prefs_utils.dart';
 import 'package:e_commerceapproute/features/ui/auth/login/login_screen.dart';
 import 'package:e_commerceapproute/features/ui/auth/register/register_screen.dart';
+import 'package:e_commerceapproute/features/ui/cart_details/cart_screen.dart';
 import 'package:e_commerceapproute/features/ui/cart_details/cubit/cart_view_model.dart';
 import 'package:e_commerceapproute/features/ui/home/home_screen.dart';
 import 'package:e_commerceapproute/features/ui/product_details/product_details.dart';
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget
             AppRoutes.registerRoute:(context)=>RegisterScreen(),
             AppRoutes.homeRoute:(context)=>Homescreen(),
             AppRoutes.productRoute:(context)=>ProductDetails(),
+            AppRoutes.cartRoute: (context) => CartScreen(),
           },
           theme: AppTheme.lightTheme,
         );

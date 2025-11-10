@@ -47,10 +47,12 @@ import '../../domain/repository/product/product_repository.dart' as _i798;
 import '../../domain/use_cases/add_cart_use_case.dart' as _i373;
 import '../../domain/use_cases/brand_use_case.dart' as _i550;
 import '../../domain/use_cases/category_use_case.dart' as _i184;
+import '../../domain/use_cases/delete_item_cart_use_case.dart' as _i524;
 import '../../domain/use_cases/get_cart_use_case.dart' as _i1001;
 import '../../domain/use_cases/login_use_case.dart' as _i471;
 import '../../domain/use_cases/product_use_case.dart' as _i1045;
 import '../../domain/use_cases/register_use_case.dart' as _i479;
+import '../../domain/use_cases/update_count_cart_use_case.dart' as _i879;
 import '../../features/ui/auth/login/cubit/login_view_model.dart' as _i245;
 import '../../features/ui/auth/register/cubit/register_view_model.dart'
     as _i873;
@@ -141,6 +143,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1001.GetCartUseCase>(
       () => _i1001.GetCartUseCase(cartRepository: gh<_i1048.CartRepository>()),
     );
+    gh.factory<_i879.UpdateCountInCartUseCase>(
+      () => _i879.UpdateCountInCartUseCase(
+        cartRepository: gh<_i1048.CartRepository>(),
+      ),
+    );
+    gh.factory<_i524.DeleteItemsInCartUseCase>(
+      () => _i524.DeleteItemsInCartUseCase(
+        cartRepository: gh<_i1048.CartRepository>(),
+      ),
+    );
     gh.factory<_i495.CategoryRepository>(
       () => _i1033.CategoryRepositoryImpl(
         categoryRemoteDataSource: gh<_i344.CategoryRemoteDataSource>(),
@@ -151,17 +163,19 @@ extension GetItInjectableX on _i174.GetIt {
         authRemoteDataSource: gh<_i865.AuthRemoteDataSource>(),
       ),
     );
-    gh.factory<_i262.CartViewModel>(
-      () => _i262.CartViewModel(
-        addToCartUseCase: gh<_i373.AddToCartUseCase>(),
-        getCartUseCase: gh<_i1001.GetCartUseCase>(),
-      ),
-    );
     gh.factory<_i471.LoginUseCase>(
       () => _i471.LoginUseCase(authRepository: gh<_i912.AuthRepository>()),
     );
     gh.factory<_i479.RegisterUseCase>(
       () => _i479.RegisterUseCase(authRepository: gh<_i912.AuthRepository>()),
+    );
+    gh.factory<_i262.CartViewModel>(
+      () => _i262.CartViewModel(
+        addToCartUseCase: gh<_i373.AddToCartUseCase>(),
+        getCartUseCase: gh<_i1001.GetCartUseCase>(),
+        deleteItemsInCartUseCase: gh<_i524.DeleteItemsInCartUseCase>(),
+        updateCountInCartUseCase: gh<_i879.UpdateCountInCartUseCase>(),
+      ),
     );
     gh.factory<_i245.LoginViewModel>(
       () => _i245.LoginViewModel(loginUseCase: gh<_i471.LoginUseCase>()),

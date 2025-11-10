@@ -5,4 +5,8 @@ abstract class AddCartRemoteDataSource {
   Future<AddCartResponse> addCart(String productId);
 
   Future<GetCartResponse> getItemsCart();
+
+  Future<GetCartResponse> deleteItemsCart(String productId);
+
+  Future<GetCartResponse> updateCountsCart(String productId, int count);
 }
